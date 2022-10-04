@@ -1,0 +1,88 @@
+create database biblioteca;
+use biblioteca;
+
+create table livros(
+id_livros int not null auto_increment,
+area varchar (30),
+nome varchar (30),
+autor varchar (30),
+editora varchar (30),
+cod_identificacao varchar(20),
+primary key (id_livros)
+)default charset= utf8;
+alter table livros add column autor1 int;
+alter table livros drop column autor1 ;
+
+insert into livros (area,nome,autor,editora,cod_identificacao) values ('terror','A cabana','William P. Young','panini','736');
+insert into livros (area,nome,autor,editora,cod_identificacao) values ('romance','A seleção','Kiera Cass','panini','358');
+
+select * from livros;
+
+create table autor1(
+id_autor int not null auto_increment,
+cod_idenfificacao varchar (10),
+nome varchar (30),
+telefone varchar (20),
+endereço varchar (20),
+primary key (id_autor)
+)default charset= utf8;
+alter table autor1 drop column cod_idenfificacao;
+alter table autor1 add column cod_verificaocao varchar(30);
+alter table autor1 drop column cod_verificaocao;
+alter table autor1 add column cod_identificacao varchar(30);
+alter table autor1 add column cod_livros int;
+alter table autor1 drop column cod_livros;
+alter table autor1 add column fk_livros int;
+alter table autor1 drop column fk_livros;
+alter table autor1 add column cod_livros int;
+alter table autor1 drop column fk_livros;
+alter table autor1 add column id_livro int;
+alter table autor1 drop column id_livro;
+
+insert into autor1 (cod_identificacao,nome,telefone,endereço) values ('32','William P. Young','41 9 97352810','Rua são Francisco');
+insert into autor1 (cod_identificacao,nome,telefone,endereço) values ('86','Kiera Cass','41 9 98643072','Rua são Miguel');
+
+select * from autor1;
+
+create table editora(
+id_editora int not null auto_increment,
+codigo varchar(20),
+nome varchar (20),
+telefone varchar (20),
+endereco varchar (20),
+primary key (id_editora)
+)default charset= utf8;
+
+insert into editora (codigo,nome,telefone,endereco) values ('134','panini','41 9 72843019','Rua São Paulo');
+select * from editora;
+
+create table titulos(
+id_areas int not null auto_increment,
+cod_identificacao varchar(30),
+descricao varchar (30),
+primary key (id_areas)
+)default charset= utf8;
+
+insert into  titulos (cod_identificacao,descricao) values ('000356','suspense e romance');
+insert into  titulos (cod_identificacao,descricao) values ('000378','terror e suspense');
+insert into  titulos (cod_identificacao,descricao) values ('000323','drama e romance'); 
+
+select * from titulos;
+
+create table usuarios(
+id_usuarios int not null auto_increment,
+dat datetime,
+cod_identificacao varchar (30),
+nome varchar (30),
+telefone varchar(30),
+endereco varchar (30),
+primary key (id_usuarios)
+)default charset= utf8;
+
+alter table usuarios drop column dat;
+alter table usuarios add column dat date;
+
+insert into usuarios (dat,cod_identificacao,nome,telefone,endereco) values ('2020-02-03','0087','Valter','42 9 83057281','Rua São João');
+select * from usuarios;
+
+Alter table livros add constraint fk_id_autor1 foreign key(autor1)references livros (id_livros);
